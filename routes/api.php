@@ -1,6 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
+/**
+ * @OA\OpenApi(
+ *     @OA\Info(
+ *         version="1.0",
+ *         title="Minha API",
+ *         description="Descrição da minha API"
+ *     )
+ * )
+ */
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExpenseController;

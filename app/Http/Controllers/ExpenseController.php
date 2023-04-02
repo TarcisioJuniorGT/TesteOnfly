@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Expense\StoreExpenseFormRequest;
 use App\Http\Requests\Expense\UpdateExpenseFormRequest;
 use App\Http\Resources\ExpenseResource;
+use App\Jobs\SendNewExpenseNotification;
 use App\Models\Expense;
-use App\Policies\ExpensePolicy;
-use App\Models\User;
 use App\Notifications\NewExpenseNotification;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
@@ -35,7 +33,7 @@ class ExpenseController extends Controller
         $expense->value = $request->input('value');
         $expense->email = Auth::user()->email;
         $expense->save();
-        $expense->notify(new NewExpenseNotification($expense));
+        SendNewExpenseNotification::dispatch($expense);
         return response()->json([
             'message' => 'Expense created'
         ], 200);

@@ -11,8 +11,11 @@ class Expense extends Model
 {
     use HasFactory;
     use Notifiable;
+
     protected $fillable = ['description', 'date', 'id_user', 'value', 'email'];
+
     protected $policy = ExpensePolicy::class;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
